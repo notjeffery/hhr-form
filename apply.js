@@ -3,7 +3,7 @@ const TOTAL_STEPS = 10;
 
 // Set to false while still building/reviewing the form so you can click through
 // without filling every field. Set back to true when ready to enforce validation.
-const ENFORCE_VALIDATION = false;
+const ENFORCE_VALIDATION = true;
 
 // Human-readable labels shown next to "Step X of Y"
 const STEP_LABELS = {
