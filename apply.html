@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Resilience Fund | Application</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="apply.css">
+</head>
+<body class="apply-body">
+
+  <!-- APP HEADER -->
+  <header class="apply-header">
+    <div class="apply-header-brand">
+      <img src="images/logo.jpg" alt="Logo" class="apply-logo">
+      <div>
+        <p class="apply-brand-name">Student Resilience Fund</p>
+        <p class="apply-brand-sub">THE HOUSEHOLD RESILIENCE INITIATIVE</p>
+      </div>
+    </div>
+    <a href="index.html" class="apply-back-link">&larr; Back to fund information</a>
+  </header>
+
+  <!-- INTRO -->
+  <div class="apply-intro">
+    <p class="apply-eyebrow">Emergency Assistance Application</p>
+    <h1 class="apply-title">Emergency Support Application</h1>
+    <p class="apply-tagline">Helping students remain enrolled, stable, and focused during times of unexpected hardship.</p>
+    <p class="apply-description">The Student Resilience Fund provides limited emergency financial assistance to eligible college students experiencing urgent financial challenges that may interfere with their education, housing stability, health, transportation, or basic needs.</p>
+    <p class="apply-description">Please complete this application honestly and provide as much detail as possible. Applications are reviewed based on available funding, level of need, and program eligibility.</p>
+
+    <div class="apply-warning">
+      <strong>Warning:</strong> Providing false or misleading information on this form constitutes fraud and will lead to automatic disqualification from all aid.
+    </div>
+
+    <p class="apply-required-note">Fields marked with <span class="required-asterisk">*</span> are required.</p>
+  </div>
+
+  <!-- STEP PROGRESS -->
+  <div class="apply-progress-row">
+    <span id="step-label">Student Information</span>
+    <span id="step-count">Step 1 of 8</span>
+  </div>
+  <div class="progress-track">
+    <div class="progress-fill" id="progress-fill"></div>
+  </div>
+
+  <!-- FORM CARD -->
+  <form class="apply-card" id="apply-form" novalidate>
+
+    <!-- STEP 1: Student Information -->
+    <section class="form-step" data-step="1">
+      <h2 class="step-heading">Section 1: Student Information</h2>
+
+      <div class="field">
+        <label for="fullName">Full Legal Name <span class="required-asterisk">*</span></label>
+        <input type="text" id="fullName" name="fullName" required>
+      </div>
+
+      <div class="field">
+        <label for="dob">Date of Birth <span class="required-asterisk">*</span></label>
+        <input type="date" id="dob" name="dob" required>
+      </div>
+
+      <div class="field">
+        <label for="age">Age <span class="required-asterisk">*</span></label>
+        <input type="number" id="age" name="age" min="0" required>
+      </div>
+
+      <div class="field">
+        <label for="phone">Phone Number <span class="required-asterisk">*</span></label>
+        <input type="tel" id="phone" name="phone" required>
+      </div>
+
+      <div class="field">
+        <label for="email">Email Address <span class="required-asterisk">*</span></label>
+        <input type="email" id="email" name="email" required>
+      </div>
+
+      <div class="field">
+        <label for="address">Current Address <span class="required-asterisk">*</span></label>
+        <input type="text" id="address" name="address" required>
+      </div>
+
+      <div class="field">
+        <label for="cityStateZip">City / State / ZIP <span class="required-asterisk">*</span></label>
+        <input type="text" id="cityStateZip" name="cityStateZip" required>
+      </div>
+    </section>
+
+    <!-- STEP 2: Education Information -->
+    <section class="form-step" data-step="2" hidden>
+      <h2 class="step-heading">Section 2: Education Information</h2>
+
+      <div class="field">
+        <label for="institution">Name of College, University, or Educational Institution <span class="required-asterisk">*</span></label>
+        <input type="text" id="institution" name="institution" required>
+      </div>
+
+      <div class="field">
+        <label>Current Enrollment Status <span class="required-asterisk">*</span></label>
+        <div class="option-list">
+          <label class="option"><input type="radio" name="enrollmentStatus" value="full-time" required> Full-time student</label>
+          <label class="option"><input type="radio" name="enrollmentStatus" value="part-time" required> Part-time student</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="program">Current Program / Major / Area of Study <span class="required-asterisk">*</span></label>
+        <input type="text" id="program" name="program" required>
+      </div>
+
+      <div class="field">
+        <label for="gradDate">Expected Graduation Date <span class="required-asterisk">*</span></label>
+        <input type="date" id="gradDate" name="gradDate" required>
+      </div>
+
+      <div class="field">
+        <label>Are you currently enrolled for the upcoming academic term? <span class="required-asterisk">*</span></label>
+        <div class="option-list">
+          <label class="option"><input type="radio" name="enrolledNextTerm" value="yes" required> Yes</label>
+          <label class="option"><input type="radio" name="enrolledNextTerm" value="no" required> No</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3: Household & Living Situation -->
+    <section class="form-step" data-step="3" hidden>
+      <h2 class="step-heading">Section 3: Household &amp; Living Situation</h2>
+
+      <div class="field">
+        <label>What is your current living situation? <span class="required-asterisk">*</span></label>
+        <div class="option-list">
+          <label class="option"><input type="radio" name="livingSituation" value="on-campus" required> On-campus housing</label>
+          <label class="option"><input type="radio" name="livingSituation" value="renting" required> Renting independently</label>
+          <label class="option"><input type="radio" name="livingSituation" value="family" required> Living with family</label>
+          <label class="option"><input type="radio" name="livingSituation" value="temporary" required> Temporary housing arrangement</label>
+          <label class="option option-other">
+            <input type="radio" name="livingSituation" value="other" required> Other:
+            <input type="text" name="livingSituationOther" class="inline-input" placeholder="Please specify" data-conditional-required>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Do you currently have dependents or children you financially support? <span class="required-asterisk">*</span></label>
+        <div class="option-list">
+          <label class="option"><input type="radio" name="hasDependents" value="yes" required> Yes</label>
+          <label class="option"><input type="radio" name="hasDependents" value="no" required> No</label>
+        </div>
+      </div>
+
+      <div class="field-group" id="dependents-details" hidden>
+        <p class="field-group-label">If yes, please provide details:</p>
+        <div class="field">
+          <label for="numDependents">Number of dependents <span class="required-asterisk">*</span></label>
+          <input type="number" id="numDependents" name="numDependents" min="0" data-conditional-required>
+        </div>
+        <div class="field">
+          <label for="agesDependents">Ages of dependents <span class="required-asterisk">*</span></label>
+          <input type="text" id="agesDependents" name="agesDependents" data-conditional-required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Are you currently a dependent or child for whom more than half of the financial support is provided by family, parents, or relatives? <span class="required-asterisk">*</span></label>
+        <div class="option-list">
+          <label class="option"><input type="radio" name="isDependent" value="yes" required> Yes</label>
+          <label class="option"><input type="radio" name="isDependent" value="no" required> No</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>For the 2025 tax year, were you claimed as a dependent on another person&rsquo;s federal income tax return? <span class="required-asterisk">*</span></label>
+        <div class="option-list">
+          <label class="option"><input type="radio" name="claimedDependent" value="yes" required> Yes</label>
+          <label class="option"><input type="radio" name="claimedDependent" value="no" required> No</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 4: Emergency Assistance Request -->
+    <section class="form-step" data-step="4" hidden>
+      <h2 class="step-heading">Section 4: Emergency Assistance Request</h2>
+
+      <div class="field">
+        <label>What type of assistance are you requesting? <span class="required-asterisk">*</span></label>
+        <p class="field-hint">Check all that apply.</p>
+        <div class="option-list checkbox-group" data-required="true" data-group-name="assistanceType">
+          <label class="option"><input type="checkbox" name="assistanceType" value="emergency-living"> Emergency living expenses</label>
+          <label class="option"><input type="checkbox" name="assistanceType" value="rent-housing"> Rent or housing support</label>
+          <label class="option"><input type="checkbox" name="assistanceType" value="utilities"> Utilities assistance</label>
+          <label class="option"><input type="checkbox" name="assistanceType" value="food"> Food assistance</label>
+          <label class="option"><input type="checkbox" name="assistanceType" value="transportation"> Transportation support</label>
+          <label class="option"><input type="checkbox" name="assistanceType" value="academic"> Academic supplies or technology needs</label>
+          <label class="option"><input type="checkbox" name="assistanceType" value="childcare"> Childcare assistance</label>
+          <label class="option"><input type="checkbox" name="assistanceType" value="medical"> Medical or wellness-related expenses</label>
+          <label class="option"><input type="checkbox" name="assistanceType" value="personal"> Emergency personal expenses</label>
+          <label class="option option-other">
+            <input type="checkbox" name="assistanceType" value="other" id="assistanceOtherCheckbox"> Other:
+            <input type="text" name="assistanceTypeOther" class="inline-input" placeholder="Please specify" data-conditional-required>
+          </label>
+        </div>
+        <p class="field-error" data-error-for="assistanceType">Please select at least one option.</p>
+      </div>
+    </section>
+
+    <!-- STEP 5: Description of Need -->
+    <section class="form-step" data-step="5" hidden>
+      <h2 class="step-heading">Section 5: Description of Need</h2>
+
+      <div class="field">
+        <label for="hardshipDescription">Please explain the unexpected hardship or situation that led you to request assistance. <span class="required-asterisk">*</span></label>
+        <p class="field-hint">Please include what happened, when it occurred, and how it has impacted your ability to continue your education.</p>
+        <textarea id="hardshipDescription" name="hardshipDescription" rows="8" required></textarea>
+      </div>
+    </section>
+
+    <!-- STEP 6: Financial Impact -->
+    <section class="form-step" data-step="6" hidden>
+      <h2 class="step-heading">Section 6: Financial Impact</h2>
+
+      <div class="field">
+        <label>Has this situation affected your ability to remain enrolled or successfully complete your coursework? <span class="required-asterisk">*</span></label>
+        <div class="option-list">
+          <label class="option"><input type="radio" name="enrollmentImpact" value="yes" required> Yes</label>
+          <label class="option"><input type="radio" name="enrollmentImpact" value="no" required> No</label>
+        </div>
+      </div>
+
+      <div class="field" id="enrollmentImpactExplain-wrap" hidden>
+        <label for="enrollmentImpactExplain">If yes, please explain: <span class="required-asterisk">*</span></label>
+        <textarea id="enrollmentImpactExplain" name="enrollmentImpactExplain" rows="4" data-conditional-required></textarea>
+      </div>
+
+      <div class="field">
+        <label for="assistanceAmount">Estimated amount of assistance requested <span class="required-asterisk">*</span></label>
+        <div class="prefixed-input">
+          <span class="input-prefix">$</span>
+          <input type="number" id="assistanceAmount" name="assistanceAmount" min="0" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="howFundsHelp">How would these funds help you overcome this challenge? <span class="required-asterisk">*</span></label>
+        <textarea id="howFundsHelp" name="howFundsHelp" rows="5" required></textarea>
+      </div>
+    </section>
+
+    <!-- STEP 7: Income & Support Information -->
+    <section class="form-step" data-step="7" hidden>
+      <h2 class="step-heading">Section 7: Income &amp; Support Information</h2>
+
+      <div class="field">
+        <label>Current employment status <span class="required-asterisk">*</span></label>
+        <div class="option-list">
+          <label class="option"><input type="radio" name="employmentStatus" value="not-employed" required> Not employed</label>
+          <label class="option"><input type="radio" name="employmentStatus" value="part-time" required> Part-time employment</label>
+          <label class="option"><input type="radio" name="employmentStatus" value="full-time" required> Full-time employment</label>
+          <label class="option"><input type="radio" name="employmentStatus" value="self-employed" required> Self-employed</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="monthlyIncome">Monthly personal income <span class="required-asterisk">*</span></label>
+        <div class="prefixed-input">
+          <span class="input-prefix">$</span>
+          <input type="number" id="monthlyIncome" name="monthlyIncome" min="0" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="taxFilingStatus">What is your tax filing status for 2025? <span class="required-asterisk">*</span></label>
+        <select id="taxFilingStatus" name="taxFilingStatus" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="already-filed">Already filed</option>
+          <option value="will-file">Will file</option>
+          <option value="not-required">Not required to file</option>
+        </select>
+      </div>
+
+      <div class="field" id="taxFilingDate-wrap" hidden>
+        <label for="taxFilingDate">Most Recent Tax Filing Date <span class="required-asterisk">*</span></label>
+        <input type="date" id="taxFilingDate" name="taxFilingDate" data-conditional-required>
+      </div>
+
+      <div class="field">
+        <label>Do you receive financial support from any of the following?</label>
+        <p class="field-hint">Select all that apply. Leave blank if none apply.</p>
+        <div class="option-list checkbox-group" data-group-name="financialSupport">
+          <label class="option"><input type="checkbox" name="financialSupport" value="scholarships"> Scholarships</label>
+          <label class="option"><input type="checkbox" name="financialSupport" value="grants"> Grants</label>
+          <label class="option"><input type="checkbox" name="financialSupport" value="student-loans"> Student loans</label>
+          <label class="option"><input type="checkbox" name="financialSupport" value="family-support"> Family support</label>
+          <label class="option"><input type="checkbox" name="financialSupport" value="public-assistance"> Public assistance</label>
+          <label class="option option-other">
+            <input type="checkbox" name="financialSupport" value="other" id="supportOtherCheckbox"> Other:
+            <input type="text" name="financialSupportOther" class="inline-input" placeholder="Please specify" data-conditional-required>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 8: Supporting Documentation -->
+    <section class="form-step" data-step="8" hidden>
+      <h2 class="step-heading">Section 8: Supporting Documentation</h2>
+      <div class="info-callout">
+        No supporting documents are needed now. We will only request documents to verify your information after the applicant has been selected for assistance.
+      </div>
+    </section>
+
+    <!-- STEP 9: Student Statement -->
+    <section class="form-step" data-step="9" hidden>
+      <h2 class="step-heading">Section 9: Student Statement</h2>
+
+      <div class="field">
+        <label for="studentStatement">Please share a brief statement about your educational goals and how receiving support from the Student Resilience Fund would help you continue your journey. <span class="required-asterisk">*</span></label>
+        <textarea id="studentStatement" name="studentStatement" rows="8" required></textarea>
+      </div>
+    </section>
+
+    <!-- STEP 10: Declaration and Penalty Notice -->
+    <section class="form-step" data-step="10" hidden>
+      <h2 class="step-heading">Section 10: Declaration and Penalty Notice</h2>
+
+      <div class="apply-warning">
+        <p>I declare, under the penalties applicable to fraud, that the responses furnished on this form are complete and verifiably accurate. I authorize Household Resilience Initiative and its authorized representatives to conduct a thorough review of my eligibility criteria.</p>
+        <p style="margin-top: 12px;">I am fully aware that knowingly providing false statements or forged documents will lead to the automatic rejection of my request for assistance and will subject me to immediate ineligibility for all current and future aid cycles. In cases where aid has already been advanced, Household Resilience Initiative retains the legal right to cease support immediately and pursue the recovery of all distributed funds.</p>
+      </div>
+
+      <div class="field checkbox-field">
+        <label class="option">
+          <input type="checkbox" id="declarationAgree" name="declarationAgree" required>
+          I have read and agree to the declaration above. <span class="required-asterisk">*</span>
+        </label>
+      </div>
+
+      <div class="field">
+        <label for="studentSignature">Student Signature <span class="required-asterisk">*</span></label>
+        <input type="text" id="studentSignature" name="studentSignature" placeholder="Type your full legal name to sign" required>
+      </div>
+
+      <div class="field">
+        <label for="signatureDate">Date <span class="required-asterisk">*</span></label>
+        <input type="date" id="signatureDate" name="signatureDate" required>
+      </div>
+    </section>
+
+    <!-- NAV BUTTONS -->
+    <div class="apply-nav">
+      <button type="button" class="btn-back" id="btn-back">&larr; Back</button>
+      <button type="button" class="btn-next" id="btn-next">Next &rarr;</button>
+    </div>
+
+  </form>
+
+  <!-- FOOTER -->
+  <footer class="apply-footer">
+    <img src="images/logo.jpg" alt="Logo" class="apply-footer-logo">
+    <p>Technical Help &nbsp;|&nbsp; Privacy Policy</p>
+    <p>&copy; 2026 The Household Resilience Initiative</p>
+  </footer>
+
+  <!-- SUBMISSION CONFIRMATION MODAL -->
+  <div class="modal-overlay" id="submit-modal" hidden>
+    <div class="modal-card">
+      <h2 class="modal-title">Student Resilience Fund Application Received!</h2>
+      <p class="modal-text">Thank you for submitting your Student Resilience Fund application.</p>
+      <p class="modal-text">Your application has been received and is now being carefully reviewed. We appreciate the opportunity to consider your request and will be in touch as soon as a decision is made. We wish you and your household the very best during this time.</p>
+      <button type="button" class="btn-apply modal-continue" id="modal-continue-btn">Continue</button>
+    </div>
+  </div>
+
+  <script src="apply.js"></script>
+</body>
+</html>

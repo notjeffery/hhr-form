@@ -1,0 +1,180 @@
+/* ============ FONTS ============ */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@400;500;600&display=swap');
+
+:root {
+  --color-cream: #faf5ea;
+  --color-dark-green: #33422f;
+  --color-darker-green: #232e20;
+  --color-gold: #b99a4b;
+  --color-text: #2b2b26;
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Poppins', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ============ HEADER ============ */
+.site-header {
+  text-align: center;
+  padding: 40px 24px 24px;
+}
+
+.site-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 2.6rem;
+  line-height: 1.15;
+  color: var(--color-darker-green);
+}
+
+.site-subtitle {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--color-dark-green);
+  margin-top: 10px;
+  letter-spacing: 0.3px;
+}
+
+.gold-divider {
+  width: 100%;
+  height: 3px;
+  background-color: var(--color-gold);
+  margin-top: 24px;
+}
+
+/* ============ HERO ============ */
+.hero {
+  position: relative;
+  width: 100%;
+}
+
+.hero-image {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-overlay-card {
+  position: relative;
+  margin: -170px 20px 0;
+  background-color: rgba(250, 245, 234, 0.95);
+  padding: 28px 24px;
+  text-align: center;
+  border-radius: 2px;
+}
+
+.hero-overlay-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--color-darker-green);
+  margin-bottom: 10px;
+}
+
+.hero-overlay-text {
+  font-size: 0.92rem;
+  color: var(--color-text);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.btn-apply {
+  display: inline-block;
+  background-color: var(--color-darker-green);
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 3px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-apply:hover {
+  background-color: var(--color-dark-green);
+}
+
+.hero-overlay-credit {
+  font-size: 0.78rem;
+  color: #6b6656;
+  margin-top: 14px;
+}
+
+/* ============ MAIN CONTENT ============ */
+.content {
+  padding: 8px 24px 40px;
+}
+
+.content-section {
+  padding: 28px 0;
+}
+
+.section-heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.55rem;
+  color: var(--color-darker-green);
+  margin-bottom: 14px;
+}
+
+.section-text {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--color-text);
+  margin-bottom: 14px;
+}
+
+.section-text:last-child {
+  margin-bottom: 0;
+}
+
+.bullet-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 14px;
+}
+
+.bullet-list li {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  padding-left: 20px;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.bullet-list li::before {
+  content: "\2022";
+  color: var(--color-gold);
+  font-weight: 700;
+  position: absolute;
+  left: 0;
+}
+
+.bullet-list li strong {
+  color: var(--color-darker-green);
+}
+
+.section-divider {
+  width: 60px;
+  height: 2px;
+  background-color: var(--color-gold);
+  border: none;
+  margin: 0 auto;
+}
