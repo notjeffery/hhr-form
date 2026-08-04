@@ -175,7 +175,7 @@ function renderStep() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-btnNext.addEventListener("click", () => {
+btnNext.addEventListener("click", async () => {
   const activeStep = document.querySelector(`.form-step[data-step="${currentStep}"]`);
 
   if (!validateStep(activeStep)) {
@@ -188,11 +188,44 @@ btnNext.addEventListener("click", () => {
     currentStep++;
     renderStep();
   } else {
-    // No backend connected yet — this just shows the confirmation modal.
-    // Actual submission (saving/emailing the data) still needs to be wired up.
-    document.getElementById("submit-modal").hidden = false;
+    await submitApplication();
   }
 });
+
+async function submitApplication() {
+  btnNext.disabled = true;
+  btnNext.textContent = "Submitting...";
+
+  const form = document.getElementById("apply-form");
+  const formData = new FormData(form);
+  const data = {};
+
+  formData.forEach((value, key) => {
+    // Checkbox groups share the same "name" — collect them into arrays
+    if (data.hasOwnProperty(key)) {
+      if (!Array.isArray(data[key])) data[key] = [data[key]];
+      data[key].push(value);
+    } else {
+      data[key] = value;
+    }
+  });
+
+  try {
+    const response = await fetch("/api/submit-application", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) throw new Error("Submission failed");
+
+    document.getElementById("submit-modal").hidden = false;
+  } catch (err) {
+    alert("Something went wrong submitting your application. Please check your connection and try again.");
+    btnNext.disabled = false;
+    btnNext.textContent = "Submit Application";
+  }
+}
 
 btnBack.addEventListener("click", () => {
   if (currentStep > 1) {
