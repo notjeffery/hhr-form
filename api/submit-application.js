@@ -1,6 +1,21 @@
 const nodemailer = require("nodemailer");
 const PDFDocument = require("pdfkit");
 
+// Each fund has its own wording. The form picks one with a hidden field named "fund".
+// Forms that send no "fund" (the student form) fall back to "student".
+const FUNDS = {
+  student: {
+    name: "Student Resilience Fund",
+    title: "Emergency Support Application",
+  },
+  household: {
+    name: "Household Resilience Fund",
+    title: "Emergency Assistance Application",
+  },
+};
+
+const SIMPLE_EMAIL = /^[^\s@,;<>"]+@[^\s@,;<>"]+\.[^\s@,;<>"]+$/;
+
 // Turns "fullName" into "Full Name" for readable PDF labels
 function formatLabel(key) {
   return key
@@ -10,7 +25,7 @@ function formatLabel(key) {
 }
 
 // Builds a PDF of the full application and resolves with it as a Buffer
-function generateApplicationPDF(data) {
+function generateApplicationPDF(data, fund) {
   return new Promise((resolve, reject) => {
     const doc = new PDFDocument({ margin: 50 });
     const buffers = [];
@@ -22,9 +37,9 @@ function generateApplicationPDF(data) {
     doc
       .fontSize(18)
       .fillColor("#33422f")
-      .text("Student Resilience Fund", { align: "center" })
+      .text(fund.name, { align: "center" })
       .fontSize(13)
-      .text("Emergency Support Application", { align: "center" });
+      .text(fund.title, { align: "center" });
 
     doc
       .moveDown(0.5)
@@ -42,6 +57,7 @@ function generateApplicationPDF(data) {
     doc.moveDown(1);
 
     Object.entries(data).forEach(([key, value]) => {
+      if (key === "fund") return; // internal routing field, not an answer
       if (value === "" || value === null || value === undefined) return;
 
       const displayValue = Array.isArray(value) ? value.join(", ") : String(value);
@@ -70,17 +86,46 @@ function generateApplicationPDF(data) {
   });
 }
 
-module.exports = async (req, res) => {
+// Websites allowed to send applications to this endpoint (browser CORS check)
+const ALLOWED_ORIGINS = [
+  "https://householdresilience.org",
+  "https://www.householdresilience.org",
+];
+
+module.exports = async function handler(req, res) {
+  const origin = req.headers.origin;
+  if (origin && ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Vary", "Origin");
+    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  }
+  if (req.method === "OPTIONS") {
+    res.status(204).end();
+    return;
+  }
+
   if (req.method !== "POST") {
     res.status(405).json({ error: "Method not allowed" });
     return;
   }
 
   try {
-    const data = req.body;
+    let data = req.body;
+    if (typeof data === "string") data = JSON.parse(data);
+    if (!data || typeof data !== "object" || Array.isArray(data)) {
+      res.status(400).json({ error: "Invalid application." });
+      return;
+    }
 
-    const pdfBuffer = await generateApplicationPDF(data);
-    const applicantName = data.fullName ? data.fullName.replace(/[^a-z0-9]/gi, "_") : "applicant";
+    const fund = FUNDS[data.fund] || FUNDS.student;
+    const fullName =
+      typeof data.fullName === "string" && data.fullName
+        ? data.fullName
+        : [data.firstName, data.lastName].filter((v) => typeof v === "string" && v).join(" ");
+
+    const pdfBuffer = await generateApplicationPDF(data, fund);
+    const applicantName = fullName ? fullName.replace(/[^a-z0-9]/gi, "_") : "applicant";
 
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
@@ -96,8 +141,8 @@ module.exports = async (req, res) => {
     await transporter.sendMail({
       from: process.env.SMTP_FROM,
       to: process.env.APPLICATIONS_INBOX || process.env.SMTP_FROM,
-      subject: `New Application: ${data.fullName || "Unknown applicant"}`,
-      text: `A new Student Resilience Fund application has been submitted. See the attached PDF for full details.`,
+      subject: `New ${fund.name} Application: ${fullName || "Unknown applicant"}`,
+      text: `A new ${fund.name} application has been submitted. See the attached PDF for full details.`,
       attachments: [
         {
           filename: `application-${applicantName}.pdf`,
@@ -107,12 +152,12 @@ module.exports = async (req, res) => {
     });
 
     // Confirmation email to the applicant (no PDF, just the message)
-    if (data.email) {
+    if (typeof data.email === "string" && SIMPLE_EMAIL.test(data.email.trim())) {
       await transporter.sendMail({
         from: process.env.SMTP_FROM,
-        to: data.email,
-        subject: "Student Resilience Fund Application Received",
-        text: `Thank you for submitting your Student Resilience Fund application.\n\nYour application has been received and is now being carefully reviewed. We appreciate the opportunity to consider your request and will be in touch as soon as a decision is made. We wish you and your household the very best during this time.`,
+        to: data.email.trim(),
+        subject: `${fund.name} Application Received`,
+        text: `Thank you for submitting your ${fund.name} application.\n\nYour application has been received and is now being carefully reviewed. We appreciate the opportunity to consider your request and will be in touch as soon as a decision is made. We wish you and your household the very best during this time.`,
       });
     }
 
@@ -121,4 +166,4 @@ module.exports = async (req, res) => {
     console.error("Submission error:", error);
     res.status(500).json({ error: "Failed to submit application. Please try again." });
   }
-};
+}
